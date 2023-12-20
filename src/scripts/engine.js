@@ -39,20 +39,32 @@ function handleClick() {
     if(openCards.length == 2) {
         setTimeout(checkMatch, 500);
     }
+
+    playSound("cartaVirando")
 }
 
 function checkMatch() {
     if (openCards[0].innerHTML === openCards[1].innerHTML) {
         openCards[0].classList.add("boxMatch");
         openCards[1].classList.add("boxMatch");
+        playSound("hit");
     }else {
         openCards[0].classList.remove("boxOpen");
         openCards[1].classList.remove("boxOpen");
+        playSound("error");
     }
 
     openCards = [];
 
     if (document.querySelectorAll(".boxMatch").length === emojis.length) {
         alert("Você venceu!");
+        playSound("aplausos");
     } 
 }
+
+function playSound(audioName) {
+    let audio = new Audio(`./src/audios/${audioName}.mp3`);
+    audio.volume = 0.2;
+    audio.play();
+}
+
